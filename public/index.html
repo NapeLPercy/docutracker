@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocuTracker</title>
+
+ <link rel="stylesheet" href="/css/style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+  </head>
+  <body>
+
+    <!-- Logo Wrapper -->
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+    
+
+      <div class="nav-buttons">
+  <h1 class="logo">
+        <span class="logo-docu">Docu</span
+        ><span class="logo-tracker">Tracker</span>
+      </h1>
+
+        <button
+          class="nav-btn"
+          id="about-btn"
+          onclick="scrollToSection('about')"
+        >
+          <i class="fas fa-info-circle"></i> About & Features
+        </button>
+
+        <button
+          class="nav-btn"
+          id="how-it-works-btn"
+          onclick="scrollToSection('howitworks')"
+        >
+          <i class="fas fa-rotate"></i> How it works
+        </button>
+
+        <button class="nav-btn" id="faqs-btn" onclick="scrollToSection('faqs')">
+          <i class="fas fa-question"></i> FAQs
+        </button>
+
+        <button
+          class="nav-btn"
+          id="dashboard-btn"
+          onclick="showSection('dashboard')"
+        >
+          <i class="fas fa-tachometer-alt"></i> Dashboard
+        </button>
+
+        <button
+          class="nav-btn"
+          id="assign-tasks-btn"
+          onclick="showSection('assigntasks')"
+        >
+          <i class="fas fa-tasks"></i> Assign Tasks
+        </button>
+
+        <button
+          class="nav-btn"
+          id="my-tasks-btn"
+          onclick="showSection('mytasks')"
+        >
+          <i class="fas fa-clipboard-list"></i> My Tasks
+        </button>
+
+        <button
+          class="nav-btn"
+          id="reports-btn"
+          onclick="showSection('reports')"
+        >
+          <i class="fas fa-chart-line"></i> Reports
+        </button>
+
+        <button
+          class="nav-btn"
+          id="ai-btn"
+          onclick="scrollToSection('ai-usage')"
+        >
+          <i class="fas fa-robot"></i> AI
+        </button>
+
+        <button
+          class="nav-btn"
+          id="manage-users-btn"
+          onclick="showSection('manageusers')"
+          style="display: none;"
+        >
+          <i class="fas fa-user-cog"></i> Manage Users
+        </button>
+
+        <button
+          class="nav-btn"
+          id="login-btn"
+          onclick="scrollToSection('login')"
+        >
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+
+        <button class="nav-btn" id="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- Content Container -->
+    <div class="content-container">
+
+      <!-- User Info Card -->
+<div id="user-info-card" class="user-card">
+  <div class="user-icon">
+    <i class="fas fa-user-circle"></i>
+  </div>
+  <div class="user-details">
+    <h3 id="user-name">John Doe</h3>
+    <p id="user-role"><i class="fas fa-user-tag"></i> Manager</p>
+    <p id="session-time"><i class="fas fa-clock"></i> Session: 00:00:00</p>
+  </div>
+</div>
+
+
+      <!-- About Section -->
+      <div id="about" class="section">
+        <h1>About DocuTracker</h1>
+        <div class="about-container">
+          <div class="about-info">
+            <h2>What is DocuTracker?</h2>
+            <p>
+              <strong>DocuTracker</strong> is a smart task management and
+              document digitization platform designed for high-efficiency
+              environments like public service hubs. It simplifies the workflow
+              by enabling managers to assign, track, and report on
+              document-related tasks in real time.
+            </p>
+
+            <h3 style="margin-top: 20px">Why Use DocuTracker?</h3>
+            <p>
+              DocuTracker helps managers make informed decisions when assigning
+              tasks — ensuring the right person is selected for the job based on
+              role, availability, and workload history. It even considers the
+              timing of previous assignments to optimize performance and reduce
+              idle time.
+            </p>
+          </div>
+
+          <div class="features-box">
+            <h2>Key Features</h2>
+            <div class="feature-columns">
+              <div class="feature-column">
+                <h3><i class="fas fa-user-shield"></i> Manager Tools</h3>
+                <ul>
+                  <li>Assign tasks by role or availability</li>
+                  <li>View performance insights and history</li>
+                  <li>Monitor workflow and efficiency in real time</li>
+                  <li>Generate and export activity reports</li>
+                </ul>
+              </div>
+              <div class="feature-column">
+                <h3><i class="fas fa-user-check"></i> Worker Dashboard</h3>
+                <ul>
+                  <li>View assigned tasks and due dates</li>
+                  <li>Update task progress with ease</li>
+                  <li>Mark completion and add comments</li>
+                  <li>Track personal performance trends</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Section -->
+      <div id="howitworks" class="section">
+        <h1>How It Works</h1>
+        <div class="how-steps">
+          <div class="step">
+            <i class="fas fa-file-import step-icon"></i>
+            <h3>Step 1: Receive Physical Documents</h3>
+            <p>
+              Drivers deliver batches of physical documents to the digitization
+              hub.
+            </p>
+          </div>
+          <div class="step">
+            <i class="fas fa-tasks step-icon"></i>
+            <h3>Step 2: Assign Tasks</h3>
+            <p>
+              Managers assign roles like indexing, scanning, QC, and assembly to
+              staff.
+            </p>
+          </div>
+          <div class="step">
+            <i class="fas fa-user-clock step-icon"></i>
+            <h3>Step 3: Perform & Track Work</h3>
+            <p>
+              Staff complete their assigned tasks, and the system tracks time,
+              status, and performance.
+            </p>
+          </div>
+          <div class="step">
+            <i class="fas fa-chart-line step-icon"></i>
+            <h3>Step 4: Monitor & Report</h3>
+            <p>
+              Managers use the dashboard to monitor progress, generate reports,
+              and ensure efficiency.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div id="faqs" class="section">
+        <h1>Frequently Asked Questions</h1>
+        <div class="faq-container">
+          <div class="faq-item">
+            <h3><i class="fas fa-question-circle"></i> What is DocuTracker?</h3>
+            <p>
+              DocuTracker is a task and workflow manager designed for
+              digitization hubs handling sensitive documents. It allows managers
+              to assign and monitor tasks while workers execute them
+              efficiently.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><i class="fas fa-user-lock"></i> Who can access the system?</h3>
+            <p>
+              Only authorized personnel with login credentials: managers,
+              indexers, scanners, QC staff, and assembly workers.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><i class="fas fa-shield-alt"></i> Is my data secure?</h3>
+            <p>
+              Yes. DocuTracker uses secure server communication and validates
+              user access at every step to maintain document integrity and
+              privacy.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><i class="fas fa-bolt"></i> How fast is task tracking?</h3>
+            <p>
+              Updates happen in real time. As tasks are completed or delayed,
+              the dashboard reflects changes instantly.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Usage Section -->
+      <div id="ai-usage" class="section">
+        <h1><i class="fas fa-brain"></i> How DocuTracker Uses AI</h1>
+        <div class="ai-grid">
+          <div class="ai-card">
+            <i class="fas fa-user-check ai-icon"></i>
+            <h3>Smart Task Assignment</h3>
+            <p>
+              AI analyzes worker roles, task history, and availability to
+              recommend or automatically assign the most suitable person for
+              each task — helping managers save time and improve accuracy.
+            </p>
+          </div>
+
+          <div class="ai-card">
+            <i class="fas fa-search ai-icon"></i>
+            <h3>Anomaly Detection</h3>
+            <p>
+              The system detects unusual behavior or inconsistencies in task
+              flow — like skipped steps, unusually fast completions, or repeated
+              delays — helping managers take corrective action quickly.
+            </p>
+          </div>
+
+          <div class="ai-card">
+            <i class="fas fa-clock ai-icon"></i>
+            <h3>Time Estimation & Planning</h3>
+            <p>
+              Based on task type and user performance data, AI predicts
+              estimated completion times. This helps in planning workloads,
+              avoiding bottlenecks, and staying ahead of deadlines.
+            </p>
+          </div>
+
+          <div class="ai-card">
+            <i class="fas fa-robot ai-icon"></i>
+            <h3>AI Chatbot Assistant</h3>
+            <p>
+              A built-in assistant helps workers understand their roles,
+              navigate the system, and get answers to common questions. Managers
+              can also ask the bot for stats or guidance on assignments.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login Section -->
+      <div id="login" class="section">
+        <h1>Welcome Back</h1>
+        <div class="login-form">
+          <div class="form-group">
+            <label for="username"
+              >Email:<span id="username_error"> Email is required</span></label
+            >
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password"
+              >Password:<span id="password_error">
+                Password is required</span
+              ></label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <span id="login-error"></span>
+          <button class="login-btn" onclick="handleLogin(this)">Sign In</button>
+        </div>
+      </div>
+
+      <!-- Manage Users Section -->
+<div id="manageusers" class="section">
+  <h1>Manage Users</h1>
+  <p>Add new personnel or view current users.</p>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event, 'add-user-tab')">
+      Add User
+    </button>
+    <button class="tab-btn" onclick="openTab(event, 'view-users-tab')">
+      View Users
+    </button>
+  </div>
+
+  <!-- Tab Contents -->
+  <div class="tab-content" id="add-user-tab">
+    <div class="login-form">
+      <!-- Persal Number -->
+      <div class="form-group">
+        <label for="persal-number">
+          Persal Number:<span class="user_error" id="persal_error"></span>
+        </label>
+        <input
+          type="text"
+          id="persal-number"
+          name="persal-number"
+          placeholder="Enter persal number"
+          required
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="emails">
+          Email:<span class="email_error" id="email_error"></span>
+        </label>
+        <input
+          type="email"
+          id="emails"
+          name="email"
+          placeholder="Enter Email"
+          required
+        />
+      </div>
+
+      <!-- Surname -->
+      <div class="form-group">
+        <label for="surname">
+          Surname:<span class="user_error" id="surname_error"></span>
+        </label>
+        <input
+          type="text"
+          id="surname"
+          name="surname"
+          placeholder="Enter surname & initials"
+          required
+        />
+      </div>
+
+      <!-- Role Selection -->
+      <div class="form-group">
+        <label for="role-add">
+          Role:<span class="user_error" id="role_add_error"></span>
+        </label>
+        <select id="role-add" name="role-add" required>
+          <option value="">-- Select a Role --</option>
+          <option value="INDEXER">Indexer</option>
+          <option value="CREATOR">Batch Creator</option>
+          <option value="ASSEMBLER">Assembler</option>
+          <option value="QC">QC</option>
+          <option value="SCANNER">Scanner</option>
+          <option value="RUNNER">Runner</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <span id="adduser-error"></span>
+      <button class="add-user-btn" onclick="addUser()">Add User</button>
+    </div>
+  </div>
+
+  <div class="tab-content" id="view-users-tab" style="display:none;">
+  <h3>Current Users</h3>
+  <div id="users-list">
+    <!-- Users will be rendered here dynamically -->
+  </div>
+</div>
+
+
+
+</div>
+
+      <!-- Assign Task Section -->
+      <div id="assigntasks" class="section">
+        <h1>Assign Task</h1>
+        <div class="login-form">
+          <div class="form-group">
+            <label for="batch-number">
+              Batch Number:<span class="assign_error" id="batch_error"> </span>
+            </label>
+            <input
+              type="text"
+              id="batch-number"
+              name="batch-number"
+              placeholder="Enter batch number"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="role-select">
+              Select Role:<span class="assign_error" id="role_error"></span>
+            </label>
+            <select
+              id="role-select"
+              name="role-select"
+              onchange="loadWorkersByRole()"
+              required
+            >
+              <option value="">-- Select a Role --</option>
+                      <option value="INDEXER">Indexer</option>
+          <option value="CREATOR">Batch Creator</option>
+          <option value="ASSEMBLER">Assembler</option>
+          <option value="QC">QC</option>
+          <option value="SCANNER">Scanner</option>
+          <option value="RUNNER">Runner</option>
+              
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="worker-select">
+              Available Workers:<span class="assign_error" id="worker_error">
+              </span>
+            </label>
+            <select id="worker-select" name="worker-select" required>
+              <option value="">-- Select personell --</option>
+              <!-- Options to be populated dynamically based on role -->
+            </select>
+          </div>
+
+          <span id="assign-error"></span>
+          <button class="login-btn" onclick="assignTask()">Assign Task</button>
+        </div>
+      </div>
+
+      <!-- Dashboard Section -->
+      <!-- Dashboard Section -->
+      <div id="dashboard" class="section" style="display: none">
+        <h1>Dashboard Overview</h1>
+        <p>
+          Welcome to your dashboard! Here's a quick overview of your system
+          metrics.
+        </p>
+
+        <div class="section-load"></div>
+
+        <!-- Stats Grid -->
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <h3>Total Tasks</h3>
+            <div class="metric" id="total-tasks">0</div>
+            <p>Assigned to you</p>
+          </div>
+          <div class="dashboard-card">
+            <h3>Completed</h3>
+            <div class="metric" id="completed-tasks">0</div>
+            <p>Successfully finished</p>
+          </div>
+          <div class="dashboard-card">
+            <h3>Pending</h3>
+            <div class="metric" id="pending-tasks">0</div>
+            <p>Still awaiting</p>
+          </div>
+
+          <!-- Manager-only -->
+          <div class="dashboard-card manager-only" style="display: none">
+            <h3>Active Members</h3>
+            <div class="metric" id="active-members">0</div>
+            <p>Currently busy</p>
+          </div>
+
+          <div class="dashboard-card manager-only" style="display: none">
+            <h3>Avg Time</h3>
+            <div class="metric" id="all-avg-time">0m</div>
+            <p>For all workers</p>
+          </div>
+
+          <!-- Worker-only -->
+          <div class="dashboard-card worker-only" style="display: none">
+            <h3>Total Reports</h3>
+            <div class="metric" id="total-reports">0</div>
+            <p>Issues linked to your tasks</p>
+          </div>
+
+          <div class="dashboard-card worker-only" style="display: none">
+            <h3>Efficiency</h3>
+            <div class="metric" id="efficiency-score">0%</div>
+            <p>Performance score</p>
+          </div>
+
+          <div class="dashboard-card worker-only" style="display: none">
+            <h3>Avg Time</h3>
+            <div class="metric" id="avg-time">0m</div>
+            <p>Per completed task</p>
+          </div>
+        </div>
+
+        <!-- Report Summary Chart -->
+        <div class="dashboard-card full-width">
+          <h3>Report Summary</h3>
+          <canvas id="reportChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Task Manager Section -->
+      <div id="mytasks" class="section" style="display: none">
+        <h1>My Tasks</h1>
+        <p>Manage and track your tasks efficiently.</p>
+
+          <div class="tasks-load"></div>
+
+        <h2>Current Tasks</h2>
+        <div class="task-list"></div>
+      </div>
+
+      <!-- Reports Section -->
+  <!-- Reports Section -->
+<div id="reports" class="section" style="display: none">
+  <h1>Reports & Analytics</h1>
+  <p>View detailed reports and performance analytics.</p>
+
+
+   <div class="reports-load"></div>
+
+  <h2>Monthly Performance Report</h2>
+
+   
+
+  <table class="reports-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Current Month</th>
+        <th>Previous Month</th>
+        <th>Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tasks Completed</strong></td>
+        <td id="tasksCompletedCurrent"></td>
+        <td id="tasksCompletedPrevious"></td>
+        <td id="tasksCompletedChange"></td>
+      </tr>
+      <tr>
+        <td><strong>User Engagement</strong></td>
+        <td id="userEngagementCurrent"></td>
+        <td id="userEngagementPrevious"></td>
+        <td id="userEngagementChange"></td>
+      </tr>
+      <tr>
+        <td><strong>Error Rate</strong></td>
+        <td id="errorRateCurrent"></td>
+        <td id="errorRatePrevious"></td>
+        <td id="errorRateChange"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="render-reports">
+
+  </div>
+</div>
+
+
+    <!-- 🔹 Popup Structure -->
+    <div id="taskPopup" class="popup-overlay">
+      <div class="popup-content">
+        <h2 id="popup-title">Start Task</h2>
+        <p id="popup-message">Are you sure you want to start this task?</p>
+        <span id="load"></span>
+        <div class="popup-buttons">
+          <button id="popup-confirm">Confirm</button>
+          <button id="popup-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Popup -->
+    <div id="reportPopup" class="popup-overlay" style="display: none">
+      <div class="popup-content">
+        <h3>Report Task</h3>
+<p id="report-task-alert"></p>
+
+        <label for="reportType">Select Type:</label>
+        <select id="reportType" class="form-control">
+          <option value="error">Error / Issue</option>
+          <option value="delay">Delay</option>
+          <option value="suggestion">Suggestion / Improvement</option>
+          <option value="comment">General Comment</option>
+        </select>
+
+        <label for="reportMessage">Comment:</label>
+        <textarea
+          id="reportMessage"
+          class="form-control"
+          rows="4"
+          placeholder="Write your report..."
+        ></textarea>
+
+        <div class="popup-actions">
+          <button class="btn-submit" onclick="submitReport()">Submit</button>
+          <button class="btn-cancel" onclick="closeReportPopup()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating AI Chatbot Button -->
+    <a
+      href="#"
+      onclick="openChatbot()"
+      target="_blank"
+      class="chatbot-btn"
+      title="Chat with AI"
+    >
+      <span>🤖</span>
+    </a>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-logo">
+          <span class="logo-docu">Docu</span
+          ><span class="logo-tracker">Tracker</span>
+        </p>
+        <p class="footer-tagline">© 2025 DocuTracker. All rights reserved.</p>
+        <p class="footer-note">The Smart Efficiency Tracking System</p>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+       <script src="/js/script.js" defer></script>
+<script>
+  // Initialize EmailJS
+  emailjs.init("ks8AivME9t0OkTD68"); // Replace with your EmailJS public key
+
+  function sendDocuTrackerEmail(name, message) {
+    // Create a "params" object matching your EmailJS template variables
+    const templateParams = {
+      name: name,
+      message: message
+    };
+
+    // Send email using your Service ID and Template ID
+    emailjs.send("service_z77xzob", "template_bl66ibc", templateParams)
+      .then(function(response) {
+        console.log("✅ Email sent successfully!", response.status, response.text);
+      }, function(error) {
+        console.error("❌ Failed to send email:", error);
+      });
+  }
+
+  
+</script>
+
+  </body>
+</html>
