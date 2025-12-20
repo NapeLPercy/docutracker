@@ -4,10 +4,34 @@ let infoCard = document.querySelector("#user-info-card");
 // Assuming `user` object is available in the front-end
 // e.g., user = { name: "John Doe", role: "MANAGER", sessionStart: Date.now() }
 
+/*<div id="user-info-card" class="user-card">
+  <div class="user-icon">
+    <i class="fas fa-user-circle"></i>
+  </div>
+  <div class="user-details">
+    <h3 id="user-name">John Doe</h3>
+    <p id="user-role"><i class="fas fa-user-tag"></i> Guest</p>
+    <p id="session-time"><i class="fas fa-clock"></i> Session: 00:00:00</p>
+  </div>
+</div>*/
+
+function addAIModeLink() {
+  console.log("ABOUT TO ADD THE AI MDE LINK");
+  const nav = document.querySelector(".navbar");
+  const link = document.createElement("a");
+  link.setAttribute("href","/ai-mode.html");
+  link.innerHTML="USE AI MODE";
+  nav.appendChild(link);
+}
+
 function renderUserCard(user) {
+
+
+  console.log("This is the user data", user);
   document.getElementById("user-name").textContent = user.name;
   document.getElementById("user-role").textContent = user.role;
 
+  console.log(user.role);
   const sessionEl = document.getElementById("session-time");
 
   user.sessionStart = Date.now();
@@ -31,6 +55,7 @@ function renderUserCard(user) {
 }
 
 if (user) {
+    addAIModeLink();//show ai mode
   infoCard.style.dislay = "flex";
   renderUserCard(user);
 
@@ -151,6 +176,8 @@ function handleLogin(btn) {
       .then((data) => {
         console.log(data);
         if (data.success) {
+            addAIModeLink();//show ai mode
+
           let userData = data.user;
           user = userData;
           sessionStorage.setItem("user", JSON.stringify(userData));
@@ -183,6 +210,7 @@ function handleLogin(btn) {
           } else {
             document.querySelector("#my-tasks-btn").style.display = "block";
           }
+          renderUserCard(user); //update user card
           // Redirect or load dashboard here
         } else {
           document.getElementById("login-error").textContent = data.message;
@@ -1049,6 +1077,7 @@ let id = null;
 
 function openReportPopup(taskId) {
   id = taskId;
+  console.log("THIS IS TASK ID ", id);
   document.getElementById("reportPopup").style.display = "flex";
 }
 
@@ -1070,7 +1099,7 @@ function submitReport() {
   messageEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i>Reporting Task`;
 
   // Send data to backend
-  fetch(`http://localhost:3000/api/reports/${id}`, {
+  fetch(`http://localhost:3000/api/tasks/${id}/report`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

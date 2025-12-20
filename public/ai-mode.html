@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocuTracker – AI Mode</title>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin-top: 0;
+        color: #1f2937;
+      }
+
+      h2 {
+        margin-top: 30px;
+        color: #111827;
+      }
+
+      p {
+        line-height: 1.6;
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        background: #e5e7eb;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .use-case-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .use-case {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #fafafa;
+      }
+
+      .use-case:hover {
+        background: #eef2ff;
+        border-color: #6366f1;
+      }
+
+      .use-case h3 {
+        margin-top: 0;
+        font-size: 16px;
+      }
+
+      .use-case p {
+        font-size: 14px;
+        color: #555;
+      }
+
+      .message-box {
+        margin-top: 30px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        resize: none;
+      }
+
+      button {
+        margin-top: 12px;
+        padding: 10px 18px;
+        font-size: 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background: #4f46e5;
+        color: white;
+      }
+
+      button:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      .info-box {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        padding: 16px;
+        border-radius: 6px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🤖 DocuTracker AI Mode</h1>
+
+      <div id="roleBadge" class="role-badge"></div>
+
+      <p>
+        AI Mode allows DocuTracker to automate task assignment, workload
+        balancing, and operational decisions using predefined workflows.
+      </p>
+
+      <div id="content"></div>
+
+      <div id="messageSection" class="message-box" style="display: none">
+        <h2>Automation Request</h2>
+        <textarea
+          id="messageInput"
+          placeholder="Describe or select an automation..."
+        ></textarea>
+        <button id="sendBtn" disabled>Send to Automation Engine</button>
+      </div>
+    </div>
+
+    <script>
+      /* -----------------------------
+       MOCK USER (replace later)
+    ----------------------------- */
+      const user = JSON.parse(sessionStorage.getItem("user"));
+
+      /* -----------------------------
+       CENTRAL USE-CASE CONFIG
+       (easy to update)
+    ----------------------------- */
+      const automationUseCases = [
+        {
+          role: ["MANAGER"],
+          title: "Assign tasks to best scanner",
+          description:
+            "Automatically assigns tasks based on efficiency and performance score.",
+          message:
+            "Assign pending tasks to the best scanner based on efficiency score.",
+        },
+        {
+          role: ["MANAGER"],
+          title: "Optimize scanner utilization",
+          description:
+            "Balances workload across scanners to improve throughput.",
+          message:
+            "Optimize scanner utilization using historical performance data.",
+        },
+        {
+          role: ["RUNNER", "MANAGER"],
+          title: "Auto-assign pending tasks",
+          description:
+            "Assigns unassigned tasks based on current availability.",
+          message:
+            "Automatically assign all pending tasks to available scanners.",
+        },
+        {
+          role: ["RUNNER"],
+          title: "Reassign stalled tasks",
+          description:
+            "Moves tasks that are inactive beyond a defined threshold.",
+          message: "Reassign tasks that have been inactive for too long.",
+        },
+      ];
+
+      /* -----------------------------
+       INIT
+    ----------------------------- */
+      document.getElementById(
+        "roleBadge"
+      ).innerText = `Logged in as: ${user.role}`;
+
+      const content = document.getElementById("content");
+      const messageSection = document.getElementById("messageSection");
+      const messageInput = document.getElementById("messageInput");
+      const sendBtn = document.getElementById("sendBtn");
+
+      if (user.role !== "MANAGER" && user.rle !== "RUNNER") {
+        renderWorkerView();
+      } else {
+        renderAutomationView();
+      }
+
+      /* -----------------------------
+       WORKER VIEW (INFO ONLY)
+    ----------------------------- */
+      function renderWorkerView() {
+        content.innerHTML = `
+        <div class="info-box">
+          <h2>How automation helps you</h2>
+          <ul>
+            <li>📄 Tasks are assigned automatically based on availability</li>
+            <li>⏱️ Workload is balanced fairly across scanners</li>
+            <li>🔁 Stalled tasks are reassigned to keep work flowing</li>
+            <li>📊 Performance tracking is handled automatically</li>
+          </ul>
+          <p>
+            You don’t need to take action here — automation runs in the background
+            to support your work.
+          </p>
+        </div>
+      `;
+      }
+
+      /* -----------------------------
+       MANAGER / RUNNER VIEW
+    ----------------------------- */
+      function renderAutomationView() {
+        const allowedUseCases = automationUseCases.filter((uc) =>
+          uc.role.includes(user.role)
+        );
+
+        let html = `<h2>Available Automations</h2>
+                  <div class="use-case-list">`;
+
+        allowedUseCases.forEach((uc, index) => {
+          html += `
+          <div class="use-case" data-index="${index}">
+            <h3>${uc.title}</h3>
+            <p>${uc.description}</p>
+          </div>
+        `;
+        });
+
+        html += `</div>`;
+        content.innerHTML = html;
+
+        messageSection.style.display = "block";
+
+        document.querySelectorAll(".use-case").forEach((card) => {
+          card.addEventListener("click", () => {
+            const uc = allowedUseCases[card.dataset.index];
+            messageInput.value = uc.message;
+            sendBtn.disabled = false;
+          });
+        });
+      }
+
+      function showAssignmentResult(data) {
+        const container = document.querySelector(".container");
+
+        if (!container) return;
+
+        // Clear any existing message
+        container.innerHTML = "";
+
+        const box = document.createElement("div");
+        box.className = "assignment-box";
+
+        box.innerHTML = `
+    <strong>✅ Task Assigned Successfully</strong><br/><br/>
+    <b>Assigned To:</b> ${data.assignedTo}<br/>
+    <b>Role:</b> ${data.role}<br/>
+    <b>Persal Number:</b> ${data.persal_number}<br/>
+    <b>Batch Number:</b> ${data.batch_number}<br/>
+    <b>Status:</b> ${data.status || "Pending"}
+  `;
+
+        container.appendChild(box);
+
+        // Remove after 1 minute (60,000 ms)
+        setTimeout(() => {
+          box.remove();
+        }, 60000);
+      }
+
+      /* -----------------------------
+       SEND (n8n trigger later)
+    ----------------------------- */
+      sendBtn.addEventListener("click", async () => {
+        const message = messageInput.value.trim();
+
+        if (!message) {
+          alert("You must enter a message");
+          return;
+        }
+
+        const payload = {
+          batch_number: "422471583",
+          role: user.role,
+          userId: user.persalNumber,
+          message,
+        };
+
+        console.log("SEND TO n8n:", payload);
+
+        try {
+          const res = await fetch(
+            "http://localhost:3000/api/automation/start",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            }
+          );
+
+          const data = await res.json();
+
+          console.log("Automation response:", data);
+
+          if (data.success) {
+            alert("Automation request sent.");
+            showAssignmentResult(data)
+          }
+        } catch (err) {
+          console.error("Automation failed:", err);
+          alert("Failed to send automation request");
+        }
+      });
+
+      /*async function getBestByRole(role) {
+        try {
+          const res = await fetch(
+            `http://localhost:3000/api/automate?role=${encodeURIComponent(
+              role
+            )}`
+          );
+
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.message || "Failed to fetch best record");
+          }
+
+          return await res.json();
+        } catch (error) {
+          console.error("getBestByRole error:", error);
+          throw error;
+        }
+      }
+      async function assignTask({
+        batch_number,
+        role,
+        assignedTo,
+        persal_number,
+      }) {
+        try {
+          const res = await fetch("http://localhost:3000/api/automate/assign", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              batch_number,
+              role,
+              assignedTo,
+              persal_number,
+            }),
+          });
+
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.message || "Failed to assign task");
+          }
+
+          return await res.json();
+        } catch (error) {
+          console.error("assignTask error:", error);
+          throw error;
+        }
+      }
+
+   */
+    </script>
+  </body>
+</html>
