@@ -9,5 +9,6 @@ router.post('/login', authController.login);
 router.get("/users", authController.getUsers);
 router.delete("/users/:persal", authController.deleteUser);
 
+router.get("/workers", authController.getWorkers);
 
 module.exports = router;
