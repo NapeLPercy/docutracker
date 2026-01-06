@@ -21,8 +21,11 @@ SOLUTION OVERVIEW
 DocuTracker addresses these challenges by providing:
 
  -Task CRUD with status updates visible to both managers and assigned staff
+ 
  -Automated task assignment via n8n workflows using manager text input
+ 
  -Efficiency and performance tracking for each staff member, including error rates, average completion time, and availability
+ 
  -AI-powered ChatGPT assistant to help users with guidance and questions
 
 
@@ -30,6 +33,7 @@ DocuTracker addresses these challenges by providing:
 CORE FEATURES
 
 Task Management
+
  -Create, update, and track tasks
  
  -Role-based interaction between managers and staff
@@ -39,16 +43,23 @@ Task Management
  -Status updates trigger notifications to managers
 
 Task Assignment Automation (n8n)
+
  -Assigns tasks automatically based on efficiency, error rates, and availability
+ 
  -Reduces manual administrative workload
 
 Efficiency & Performance Tracking
+
  -Measures task completion time, error rates, and overall efficiency
+ 
  -Provides actionable insights for managers
 
 AI Assistance (ChatGPT)
+
  -Guides users through workflows and system navigation
+ 
  -Answers task-related questions
+ 
  -Optional support layer for staff and managers
 
 
@@ -56,6 +67,7 @@ AI Assistance (ChatGPT)
  TARGET USERS
  
 -Managers overseeing document digitization workflows
+
 -Staff performing document processing tasks
 
 
@@ -76,9 +88,13 @@ Modular and extensible design
 TECH STACK
 
 frontend: html, css, JavaScript, bootstrap
+
 Backend: Express.js, Node.js
+
 Automation: n8n workflows, JavaScript & Python scripts
+
 AI / Chatbot: ChatGPT API
+
 Database: MySql 
 
 
@@ -86,15 +102,21 @@ Database: MySql
 FUTURE IMPROVEMENTS
 
 1 Expand efficiency scoring algorithms for more accurate task assignment
+
 2 Enhance AI assistant with contextual guidance and dynamic suggestions
+
 4 Modularize architecture for multi-hub deployments
+
 5 Add automated unit and integration tests
+
 6 Improve automation rules for adaptive task distribution
 
 PROJECT STATUS
 
 -WIL prototype for DHA Digitization Hub
+
 -Demonstrates workflow analysis, automation, and AI integration
+
 -Not yet deployed in production
 
 
