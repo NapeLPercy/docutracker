@@ -31,8 +31,11 @@ CORE FEATURES
 
 Task Management
  -Create, update, and track tasks
+ 
  -Role-based interaction between managers and staff
+ 
  -Live dashboards
+ 
  -Status updates trigger notifications to managers
 
 Task Assignment Automation (n8n)
